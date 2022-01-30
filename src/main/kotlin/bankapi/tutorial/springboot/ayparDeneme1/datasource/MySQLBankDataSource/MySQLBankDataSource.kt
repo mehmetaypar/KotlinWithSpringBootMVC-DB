@@ -13,10 +13,6 @@ class MySQLBankDataSource:BankDataSource {
 
 
 
-fun getSQL(accountNumber:String)=    MySQLBankDataSourceConnection.getSQLSingleBank("222")
-//object:MySQLBankDataSourceConnection
-    //companion object MySQLBankDataSourceConnection
-
 
 
     override fun retrieveBanks(): Collection<Bank> {
@@ -36,7 +32,7 @@ fun getSQL(accountNumber:String)=    MySQLBankDataSourceConnection.getSQLSingleB
     }
 
     override fun removeBank(accountNumber: String) {
-
+MySQLBankDataSourceConnection.deleteSQLSingleBank(accountNumber)
     }
 
 

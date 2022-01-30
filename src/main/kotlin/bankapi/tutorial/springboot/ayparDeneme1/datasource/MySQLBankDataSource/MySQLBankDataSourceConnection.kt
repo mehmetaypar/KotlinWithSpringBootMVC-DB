@@ -1,8 +1,10 @@
 package bankapi.tutorial.springboot.ayparDeneme1.datasource.MySQLBankDataSourceConnection
 
 import bankapi.tutorial.springboot.ayparDeneme1.model.Bank
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+//import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import java.lang.IllegalArgumentException
 import java.sql.*
+//import kotlin.reflect.jvm.internal.impl.util.Check
 
 
 object MySQLBankDataSourceConnection { //MAKE THIS OBJ PRIVATE TO MySQLBankDataSource CLASS
@@ -11,7 +13,7 @@ object MySQLBankDataSourceConnection { //MAKE THIS OBJ PRIVATE TO MySQLBankDataS
     private const val  url:String="jdbc:mysql://localhost:3306/banksdb?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey"
     private const val user:String="root"
     private const val password:String="123456"
- val objMapper =jacksonObjectMapper()
+ //val objMapper =jacksonObjectMapper()
 
     private val setConnection:Connection=  DriverManager.getConnection(url,
         user,
@@ -28,17 +30,30 @@ object MySQLBankDataSourceConnection { //MAKE THIS OBJ PRIVATE TO MySQLBankDataS
             println(r.getString("accountNumber")+"-"
                     +r.getString("accountNumber")+"-"
                    )
-            println("aaaaaaaaaaaaaaaaaaaaa")
+            println("TEST CASE SUCCEED")
         }catch (e:SQLException){
-            e.printStackTrace();
+            println("TEST CASE FAILED")
+            e.printStackTrace()
         }
     }
-    
+
+    private fun checkExists(accountNumber: String): Boolean {
+        try {
+            return this.getSQLSingleBank(accountNumber) is Bank
+        }catch (e:NoSuchElementException)
+        {
+            println("WE SEE AS AN EXCEPTION")
+            return false
+        }
+
+
+    }
+
     fun getSQLListBanks (querry:String):Collection<Bank>{ //THROW EXCEPTIONS TO CONTROLLER
 
        val QuerrySent="Select * from banksdb.banks_table "+querry+";"
         println(QuerrySent)
-        val bankList=mutableListOf(Bank("123456789",0.1,1)) //SOLVE THIS
+        val bankList=mutableListOf(Bank("DUMMY",0.1,1)) //SOLVE THIS
         bankList.removeAt(0)
         try {
             val r = dbSttmnt.executeQuery(QuerrySent)
@@ -49,7 +64,8 @@ object MySQLBankDataSourceConnection { //MAKE THIS OBJ PRIVATE TO MySQLBankDataS
      }
 
         }catch (e:SQLException){
-            e.printStackTrace();
+
+            e.printStackTrace()
         }
             return bankList //REMOVE THIS
     }
@@ -62,41 +78,55 @@ object MySQLBankDataSourceConnection { //MAKE THIS OBJ PRIVATE TO MySQLBankDataS
             r.next()
             return Bank(r.getString("accountNumber"),r.getDouble("trust"),r.getInt("transactionFee"))
         }catch (e:SQLException){
-            e.printStackTrace();
+            //e.printStackTrace();
+             throw NoSuchElementException("could not find a bank with account number $querry")
         }
-        return Bank("1234",0.1,1)
     }
 
-    fun insertSQLSingleBank (bank: Bank):Bank{
+    fun insertSQLSingleBank (bank: Bank):Bank{ //CHECK, IF EXISTS THROW ERR
+
+        //this.getSQLSingleBank(bank.accountNumber)
+
         val QuerrySent="INSERT INTO banksdb.banks_table (`accountNumber`, `trust`, `transactionFee`) VALUES ('${bank.accountNumber}', '${bank.trust}', '${bank.transactionFee}');"
         println(QuerrySent)
         try {
-            val r = dbSttmnt.executeUpdate(QuerrySent)
+           dbSttmnt.executeUpdate(QuerrySent)
+            return bank
         }catch (e:SQLException){
-            e.printStackTrace();
+          //  e.printStackTrace();
+            throw IllegalArgumentException ("Bank with accountNumber ${bank.accountNumber} already exists")
         }
-        return bank
     }
 
     fun updateSQLSingleBank (bank: Bank):Bank{
-        val QuerrySent="UPDATE banksdb.banks_table SET `accountNumber` = '${bank.accountNumber}', `trust` = '${bank.trust}', `transactionFee` = '${bank.transactionFee}' WHERE (`accountNumber` = '${bank.accountNumber}');"
-        println(QuerrySent)
+
         try {
-            val r = dbSttmnt.executeUpdate(QuerrySent)
+            this.getSQLSingleBank(bank.accountNumber)
+
+            val QuerrySent="UPDATE banksdb.banks_table SET `accountNumber` = '${bank.accountNumber}', `trust` = '${bank.trust}', `transactionFee` = '${bank.transactionFee}' WHERE (`accountNumber` = '${bank.accountNumber}');"
+            println(QuerrySent)
+             dbSttmnt.executeUpdate(QuerrySent)
+            return bank
+
         }catch (e:SQLException){
-            e.printStackTrace();
+  //          e.printStackTrace();
+            throw NoSuchElementException ("could not find a bank with account number ${bank.accountNumber}")
         }
-        return bank
     }
 
     fun deleteSQLSingleBank (querry:String):String{
-        val QuerrySent="DELETE FROM banksdb.banks_table WHERE  accountNumber = '$querry';"//(`accountNumber` = '44');
-        println(QuerrySent)
+
         try {
-            val r = dbSttmnt.executeUpdate(QuerrySent)
+            if (checkExists(querry)==false){
+                throw NoSuchElementException ("could not find a bank with account number $querry")
+            }
+            val QuerrySent="DELETE FROM banksdb.banks_table WHERE  accountNumber = '$querry';"//(`accountNumber` = '44');
+        println(QuerrySent)
+
+            dbSttmnt.executeUpdate(QuerrySent)
 
         }catch (e:SQLException){
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return querry
     }
