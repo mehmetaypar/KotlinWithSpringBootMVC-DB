@@ -20,9 +20,13 @@ repositories {
 dependencies {
 	implementation( files("build/libs/mysql-connector-java-8.0.20.jar"))
 
-
+/*
 	implementation("org.hibernate:hibernate-core:5.6.5.Final")
 	implementation("org.hibernate:hibernate-entitymanager:5.6.4.Final")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.9")
+
+
+ */
 
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

@@ -2,8 +2,12 @@ package bankapi.tutorial.springboot.ayparDeneme1.datasource.MySQLBankDataSource
 
 import bankapi.tutorial.springboot.ayparDeneme1.datasource.BankDataSource
 import bankapi.tutorial.springboot.ayparDeneme1.datasource.MySQLBankDataSourceConnection.MySQLBankDataSourceConnection
+//import bankapi.tutorial.springboot.ayparDeneme1.datasource.jpaBankDataSource.JpaBankRepository
 import bankapi.tutorial.springboot.ayparDeneme1.model.Bank
+//import bankapi.tutorial.springboot.ayparDeneme1.model.jpaBankEntity
 import org.springframework.stereotype.Repository
+
+
 
 //import  bankapi.tutorial.springboot.ayparDeneme1.datasource.MySQLBankDataSource
 
@@ -16,6 +20,7 @@ class MySQLBankDataSource:BankDataSource {
 
 
     override fun retrieveBanks(): Collection<Bank> {
+
        return MySQLBankDataSourceConnection.getSQLListBanks("")
     }
 
