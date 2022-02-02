@@ -25,6 +25,7 @@ object MySQLBankDataSourceConnection { //MAKE THIS OBJ PRIVATE TO MySQLBankDataS
     fun connection(){
 
         try {
+
             val r:ResultSet = dbSttmnt.executeQuery("Select * from banks_table")
             r.next()
             println(r.getString("accountNumber")+"-"

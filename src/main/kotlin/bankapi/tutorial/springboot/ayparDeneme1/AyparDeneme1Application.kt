@@ -2,6 +2,7 @@ package bankapi.tutorial.springboot.ayparDeneme1
 
 import bankapi.tutorial.springboot.ayparDeneme1.datasource.MySQLBankDataSourceConnection.MySQLBankDataSourceConnection
 import bankapi.tutorial.springboot.ayparDeneme1.model.Bank
+import bankapi.tutorial.springboot.ayparDeneme1.swaggerconfig.SwaggerConfig
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -9,6 +10,7 @@ import org.springframework.boot.runApplication
 class AyparDeneme1Application
 
 fun main(args: Array<String>) {
+	//SwaggerConfig()
 MySQLBankDataSourceConnection.connection()
 //  println(	MySQLBankDataSourceConnection.getSQLSingleBank("222").toString())
 //	println(	MySQLBankDataSourceConnection.getSQLListBanks("Where accountNumber<100").toString())

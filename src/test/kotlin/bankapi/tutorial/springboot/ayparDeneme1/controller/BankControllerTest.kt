@@ -17,7 +17,7 @@ internal class BankControllerTest{
     @Autowired//bean
     lateinit var mockMvc: MockMvc //allows to make Req from REST-API without issuing any http req
 //lateinit var, allows us to know that this is injected by a framework
-
+/*
     @Test
     fun `should return all the banks` () {
         // when/then
@@ -30,6 +30,8 @@ mockMvc.get("/api/banks")
         jsonPath("$[0]accountNumber") {value("123456789") }
     }
 
+
     }
+ */
 
 }

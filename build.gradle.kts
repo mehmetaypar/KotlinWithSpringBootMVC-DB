@@ -18,12 +18,32 @@ repositories {
 }
 
 dependencies {
+	implementation( files("build/libs/mysql-connector-java-8.0.20.jar"))
+
+
+	implementation("org.hibernate:hibernate-core:5.6.5.Final")
+	implementation("org.hibernate:hibernate-entitymanager:5.6.4.Final")
+
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	implementation("io.springfox:springfox-swagger-ui:3.0.0")
+	implementation("io.springfox:springfox-swagger2:3.0.0")
+/*
+	implementation("org.springdoc:springdoc-openapi-ui:1.5.0")
+	implementation("org.springdoc:springdoc-openapi-data-rest:1.5.0")
+	implementation("org.springdoc:springdoc-openapi-kotlin:1.5.0")
+
+ */
+
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:1.10.4")
+
+
+
+
 }
 
 tasks.withType<KotlinCompile> {
