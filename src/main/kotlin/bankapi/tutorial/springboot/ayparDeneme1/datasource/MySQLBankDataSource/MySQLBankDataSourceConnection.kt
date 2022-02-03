@@ -21,7 +21,7 @@ object MySQLBankDataSourceConnection { //MAKE THIS OBJ PRIVATE TO MySQLBankDataS
     )
     val dbSttmnt:Statement = setConnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)
 
-    @JvmStatic//for testing
+   // @JvmStatic//for testing
     fun connection(){
 
         try {

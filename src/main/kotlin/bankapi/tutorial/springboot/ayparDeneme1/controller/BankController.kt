@@ -1,9 +1,13 @@
 package bankapi.tutorial.springboot.ayparDeneme1.controller
 
 //import bankapi.tutorial.springboot.ayparDeneme1.datasource.jpaBankDataSource.JpaBankRepository
+import bankapi.tutorial.springboot.ayparDeneme1.datasource.jpaBankDataSource.JpaBankRepository
 import bankapi.tutorial.springboot.ayparDeneme1.model.Bank
+import bankapi.tutorial.springboot.ayparDeneme1.model.jpaBankEntity
 //import bankapi.tutorial.springboot.ayparDeneme1.model.jpaBankEntity
 import bankapi.tutorial.springboot.ayparDeneme1.service.BankService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -15,30 +19,52 @@ import org.springframework.web.server.ResponseStatusException
 
 @RestController// consider this as bean
 @RequestMapping//("/api/banks")
-class BankController(private val service: BankService) {
+class BankController(private val service: BankService, val  jpaBankRepository: JpaBankRepository) {
 
     @ExceptionHandler(NoSuchElementException::class)
-    fun handleNotFoundFunc(e: NoSuchElementException):ResponseEntity<String> = ResponseEntity(e.message, HttpStatus.NOT_FOUND)
+    fun handleNotFoundFunc(e: NoSuchElementException): ResponseEntity<String> =
+        ResponseEntity(e.message, HttpStatus.NOT_FOUND)
 
     @ExceptionHandler(IllegalArgumentException::class)
-    fun handleBadRequestFunc (e: IllegalArgumentException):ResponseEntity<String> = ResponseEntity(e.message,HttpStatus.BAD_REQUEST)
+    fun handleBadRequestFunc(e: IllegalArgumentException): ResponseEntity<String> =
+        ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
-
-    @GetMapping("/getdata")
-   fun getBankData() :Collection<Bank>{return  service.getBanks() }
 
     @GetMapping("/id/{accountNumber}")
-  fun getBank(@PathVariable accountNumber:String):Bank=service.getBank(accountNumber)
+    fun getBank(@PathVariable accountNumber: String): jpaBankEntity {
 
-@PostMapping
-@ResponseStatus(HttpStatus.CREATED)
-fun addBank(@RequestBody bank :Bank): Bank = service.addBank(bank)
+        //  var tempBank :Bank
+        return service.getBank(accountNumber)
+    }
 
-    @PatchMapping
-    @ResponseStatus(HttpStatus.FOUND)
-    fun updateBank(@RequestBody bank: Bank) :Bank =service.updateBank(bank)
+//    @GetMapping("/surname/{surname}")
+ //   fun getBankBySurname(@PathVariable surname: String):List <jpaBankEntity> { //  var tempBank :Bank return service.getBankBySurname(surname) return "sad3"}
 
 
-    @DeleteMapping("/{accountNumber}")
-    fun removeBank(@PathVariable accountNumber: String):Unit = service.removeBank(accountNumber)
-}
+}//service.getBank(accountNumber)
+
+
+    /*
+    @GetMapping("/getdata")
+    fun getBankData() :Collection<Bank>{
+        //return jpaBankRepository.findAll()
+        return  service.getBanks()
+
+    }
+
+
+       @PostMapping
+        @ResponseStatus(HttpStatus.CREATED)
+        fun addBank(@RequestBody bank :Bank): Bank = service.addBank(bank)
+
+        @PatchMapping
+        @ResponseStatus(HttpStatus.FOUND)
+        fun updateBank(@RequestBody bank: Bank) :Bank =service.updateBank(bank)
+
+
+        @DeleteMapping("/{accountNumber}")
+        fun removeBank(@PathVariable accountNumber: String):Unit = service.removeBank(accountNumber)
+
+ }
+
+     */

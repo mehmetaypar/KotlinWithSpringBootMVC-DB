@@ -1,31 +1,20 @@
 package bankapi.tutorial.springboot.ayparDeneme1.datasource.jpaBankDataSource
-/*
+
 import bankapi.tutorial.springboot.ayparDeneme1.model.jpaBankEntity
-import org.springframework.data.repository.CrudRepository
 
 
 
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor
+import org.springframework.stereotype.Repository
+import java.util.*
 
-interface JpaBankRepository : CrudRepository<jpaBankEntity, Long> {
-
-
-    fun findBySlug(slug: String): jpaBankEntity?
-    fun findAllByOrderByAddedAtDesc(): Iterable<jpaBankEntity>
-}
-
-
-@Configuration
-class BlogConfiguration {
-
-    @Bean
-    fun databaseInitializer(jpaBankRepository: JpaBankRepository) = ApplicationRunner {
-
-        jpaBankRepository.save(jpaBankEntity("smaldini", 3243.32, 3))
-    }
-
+@Repository
+interface JpaBankRepository : JpaRepository <jpaBankEntity, String>,// : CrudRepository<jpaBankEntity, Long> {
+    JpaSpecificationExecutor<jpaBankEntity> {
+        fun findBySurname (surname:String): List<jpaBankEntity>
 
 }
- */

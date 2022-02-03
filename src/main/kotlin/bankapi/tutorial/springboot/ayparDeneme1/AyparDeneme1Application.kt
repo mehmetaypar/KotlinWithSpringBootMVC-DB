@@ -11,7 +11,7 @@ class AyparDeneme1Application
 
 fun main(args: Array<String>) {
 	//SwaggerConfig()
-MySQLBankDataSourceConnection.connection()
+//MySQLBankDataSourceConnection.connection()
 //  println(	MySQLBankDataSourceConnection.getSQLSingleBank("222").toString())
 //	println(	MySQLBankDataSourceConnection.getSQLListBanks("Where accountNumber<100").toString())
 //	println(	MySQLBankDataSourceConnection.insertSQLSingleBank(Bank("111",3.3,4)).toString())
