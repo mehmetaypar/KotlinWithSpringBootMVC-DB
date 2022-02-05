@@ -32,16 +32,38 @@ class BankController(private val service: BankService, val  jpaBankRepository: J
 
     @GetMapping("/id/{accountNumber}")
     fun getBank(@PathVariable accountNumber: String): jpaBankEntity {
-
-        //  var tempBank :Bank
         return service.getBank(accountNumber)
     }
+    @GetMapping("/getdata")
+    fun getBankData()= service.getBanks()
 
-//    @GetMapping("/surname/{surname}")
- //   fun getBankBySurname(@PathVariable surname: String):List <jpaBankEntity> { //  var tempBank :Bank return service.getBankBySurname(surname) return "sad3"}
+    @PostMapping("/posted")
+    @ResponseStatus(HttpStatus.CREATED)
+    fun addBank(@RequestBody bank :jpaBankEntity): jpaBankEntity = service.addBank(bank)
 
 
-}//service.getBank(accountNumber)
+    @PatchMapping
+    @ResponseStatus(HttpStatus.FOUND)
+    fun updateBank(@RequestBody bank: jpaBankEntity) :jpaBankEntity =service.updateBank(bank)
+
+
+
+    @GetMapping("/surname/{surname}")
+    fun getBankBySurname(@PathVariable surname: String):List <jpaBankEntity> = service.getBankBySurname(surname)
+
+@DeleteMapping("/{accountNumber}")
+fun removeBank(@PathVariable accountNumber: String):Unit = service.removeBank(accountNumber)
+
+}
+//@DeleteMapping("/{accountNumber}")
+//fun removeBank(@PathVariable accountNumber: String):Unit = service.removeBank(accountNumber)
+
+    // @PatchMapping
+   // @ResponseStatus(HttpStatus.FOUND)
+   // fun updateBank(@RequestBody bank: Bank) :Bank =service.updateBank(bank)
+
+
+//service.getBank(accountNumber)
 
 
     /*
@@ -51,7 +73,6 @@ class BankController(private val service: BankService, val  jpaBankRepository: J
         return  service.getBanks()
 
     }
-
 
        @PostMapping
         @ResponseStatus(HttpStatus.CREATED)

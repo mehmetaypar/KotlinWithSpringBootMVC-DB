@@ -17,4 +17,5 @@ interface JpaBankRepository : JpaRepository <jpaBankEntity, String>,// : CrudRep
     JpaSpecificationExecutor<jpaBankEntity> {
         fun findBySurname (surname:String): List<jpaBankEntity>
 
+    //    fun updateBank(bank : jpaBankEntity): Boolean
 }
