@@ -32,12 +32,9 @@ class BankController(private val service: BankService, val  jpaBankRepository: J
     @ResponseStatus(HttpStatus.CREATED)
     fun addBank(@RequestBody bank :jpaBankEntity): jpaBankEntity = service.addBank(bank)
 
-
     @PatchMapping
     @ResponseStatus(HttpStatus.FOUND)
     fun updateBank(@RequestBody bank: jpaBankEntity) :jpaBankEntity =service.updateBank(bank)
-
-
 
     @GetMapping("/surname/{surname}")
     fun getBankBySurname(@PathVariable surname: String):List <jpaBankEntity> = service.getBankBySurname(surname)

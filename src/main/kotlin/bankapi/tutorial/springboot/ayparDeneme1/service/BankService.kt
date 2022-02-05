@@ -14,13 +14,14 @@ import java.util.*
 //can be injected as a dependency injection to other classes/objects
 //calls DS'es, handle/maps exceptions, performs data transformations (bussiness logic)
 class BankService (val jpaBankRepository: JpaBankRepository){//,val dataSource: BankDataSource){
-
+// TODO: 2/5/2022 EMPTY HERE AND Carry bussiness logic to İMPLEMENT BankDataSource:jpaBankRepository FUNCTİONS OVERLOAD
     fun getBank(accountNumber: String): jpaBankEntity = jpaBankRepository.getReferenceById(accountNumber)
 
     fun getBankBySurname(surname: String): List<jpaBankEntity> = jpaBankRepository.findBySurname(surname)
-fun getBanks():List<jpaBankEntity> = jpaBankRepository.findAll()
-//fun addBank():
-fun addBank(bank : jpaBankEntity):jpaBankEntity {
+
+    fun getBanks():List<jpaBankEntity> = jpaBankRepository.findAll()
+
+    fun addBank(bank : jpaBankEntity):jpaBankEntity {
         val checker: Optional<jpaBankEntity> =
             bank.accountNumber?.let { jpaBankRepository.findById(it) } as Optional<jpaBankEntity>
         if (checker.isPresent){
@@ -42,7 +43,6 @@ fun addBank(bank : jpaBankEntity):jpaBankEntity {
     }
 
     fun removeBank (accountNumber : String) {
-
         try {
             val checker: jpaBankEntity? = jpaBankRepository.getReferenceById(accountNumber)
             if (checker != null) {
@@ -55,19 +55,5 @@ fun addBank(bank : jpaBankEntity):jpaBankEntity {
 
     }
 }
-
-
-
-/*
-    fun getBanks():Collection<Bank> = dataSource.retrieveBanks()
-
-    fun getBank(accountNumber: String):Bank = dataSource.retrieveBank(accountNumber)
-
-    fun addBank(bank: Bank):Bank=dataSource.createBank(bank)
-
-    fun updateBank (bank: Bank) = dataSource.updateBank(bank)
-*/
-    //fun removeBank (accountNumber: String) :Unit = dataSource.removeBank(accountNumber)
-
 
 

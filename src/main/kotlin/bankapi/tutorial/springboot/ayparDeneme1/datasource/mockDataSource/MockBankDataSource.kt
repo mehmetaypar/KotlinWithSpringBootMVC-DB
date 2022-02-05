@@ -31,7 +31,6 @@ return banks.firstOrNull(){it.accountNumber == accountNumber}
 
     override fun updateBank(bank: Bank): Bank {
      val currentbank= banks.firstOrNull(){it.accountNumber== bank.accountNumber}?:throw NoSuchElementException ("could not find a bank with account number $bank.accountNumber")
-
         banks.remove(currentbank)
         banks.add(bank)
         return  bank

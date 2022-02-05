@@ -23,6 +23,6 @@ class MySQLBankDataSource:BankDataSource {
         return MySQLBankDataSourceConnection.updateSQLSingleBank( bank)
     }
     override fun removeBank(accountNumber: String) {
-MySQLBankDataSourceConnection.deleteSQLSingleBank(accountNumber)
+    MySQLBankDataSourceConnection.deleteSQLSingleBank(accountNumber)
     }
 }
