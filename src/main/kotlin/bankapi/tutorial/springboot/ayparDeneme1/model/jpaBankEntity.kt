@@ -7,8 +7,7 @@ import javax.persistence.*
 @Entity
  class jpaBankEntity (
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( nullable = false)//    @Column(name = "name", nullable = false)
+    @Column( nullable = false)
     var accountNumber: String? = null,
     @Column( nullable = false)
     var trust: Double? = null,
