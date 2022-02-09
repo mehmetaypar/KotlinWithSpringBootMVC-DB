@@ -15,7 +15,7 @@ import java.util.*
 //calls DS'es, handle/maps exceptions, performs data transformations (bussiness logic)
 class BankService (val jpaBankRepository: JpaBankRepository){//,val dataSource: BankDataSource){
 // TODO: 2/5/2022 EMPTY HERE AND Carry bussiness logic to İMPLEMENT BankDataSource:jpaBankRepository FUNCTİONS OVERLOAD
-    fun getBank(accountNumber: String): jpaBankEntity = jpaBankRepository.getReferenceById(accountNumber)
+    fun getBank(accountNumber: String): jpaBankEntity = jpaBankRepository.getById(accountNumber)
 
     fun getBankBySurname(surname: String): List<jpaBankEntity> = jpaBankRepository.findBySurname(surname)
 
@@ -44,7 +44,7 @@ class BankService (val jpaBankRepository: JpaBankRepository){//,val dataSource: 
 
     fun removeBank (accountNumber : String) {
         try {
-            val checker: jpaBankEntity? = jpaBankRepository.getReferenceById(accountNumber)
+            val checker: jpaBankEntity? = jpaBankRepository.getById(accountNumber)
             if (checker != null) {
                 jpaBankRepository.delete(checker)
             }

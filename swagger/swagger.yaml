@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
   version: 1.0.1
   title: BankManager
@@ -8,7 +8,7 @@ servers:
   - url: "http://notlocalhost:8080"
 
 paths:
-  /getdata:
+  /user/getdata:
     get:
       tags:
         - user
@@ -23,8 +23,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JpaBankEntity'
-
-  /surname/{surname}:
+  /user/surname/{surname}:
     get:
       tags:
         - user
@@ -47,9 +46,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JpaBankEntity'
-
-
-  /getId/{id}:
+  /user/{id}:
     get:
       tags:
         - user
@@ -71,10 +68,30 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/JpaBankEntity'
-  /addBank:
+                $ref: '#/components/schemas/JpaBankEntity'
+    delete:
+      tags:
+        - user
+      description: This is a bank delete call
+      operationId: deleteBankById
+      parameters:
+        - name: id
+          in: path
+          description: id variable
+          required: true
+          style: simple
+
+          schema:
+            maxLength: 255
+            type: string
+      responses:
+        '204':
+          description: This is 204 description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedMessage'
+  /user/handleBankData:
     post:
       tags:
         - user
@@ -104,8 +121,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreatedMessage'
-
-  /updateBank:
     put:
       tags:
         - user
@@ -135,34 +150,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreatedMessage'
-
-  /delete/{id}:
-    delete:
-      tags:
-        - user
-      description: This is a bank delete call
-      operationId: deleteBankById
-      parameters:
-        - name: id
-          in: path
-          description: id variable
-          required: true
-          style: simple
-
-          schema:
-            maxLength: 255
-            type: string
-      responses:
-        '204':
-          description: This is 204 description
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeletedMessage'
-
-
-
-
 
 components:
   schemas:
