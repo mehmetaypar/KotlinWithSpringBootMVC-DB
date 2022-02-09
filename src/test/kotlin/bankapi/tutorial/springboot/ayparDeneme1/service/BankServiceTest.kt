@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 internal class BankServiceTest{
     private val dataSource:BankDataSource=  mockk(relaxed=true)
 //every and verify are needed for mock objects
+    /*
     private val bankService= BankService(dataSource)
 
     @Test
@@ -25,4 +26,6 @@ internal class BankServiceTest{
         verify(exactly = 1) { dataSource.retrieveBanks() }
 
     }
+
+     */
 }

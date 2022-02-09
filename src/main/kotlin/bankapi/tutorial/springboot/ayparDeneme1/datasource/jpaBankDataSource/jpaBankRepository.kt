@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository
 
 @Repository //HOW TO İMPLEMENT OVERRİDE GETBANKS  ON BankDataSource
 interface JpaBankRepository : JpaRepository <jpaBankEntity, String>,// : CrudRepository<jpaBankEntity, Long> {
-    JpaSpecificationExecutor<jpaBankEntity> ,BankDataSource{
+    JpaSpecificationExecutor<jpaBankEntity> {
         fun findBySurname (surname:String): List<jpaBankEntity>
     }
 

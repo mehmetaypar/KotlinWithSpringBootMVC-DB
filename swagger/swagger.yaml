@@ -1,0 +1,198 @@
+openapi: 3.0.0
+info:
+  version: 1.0.1
+  title: BankManager
+  description: lol api
+
+servers:
+  - url: "http://notlocalhost:8080"
+
+paths:
+  /getdata:
+    get:
+      tags:
+        - user
+      description: This is a getdata call
+      operationId: getAllBanks
+      responses:
+        '200':
+          description: This is 200 description
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JpaBankEntity'
+
+  /surname/{surname}:
+    get:
+      tags:
+        - user
+      description: This is a getdata call
+      operationId: getBanksBySurname
+      parameters:
+        - name: surname
+          in: path
+          description: surname variable
+          required: true
+          style: simple
+
+          schema:
+            maxLength: 255
+            type: string
+      responses:
+        '200':
+          description: This is 200 description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JpaBankEntity'
+
+
+  /getId/{id}:
+    get:
+      tags:
+        - user
+      description: This is a a bank call
+      operationId: getBankById
+      parameters:
+        - name: id
+          in: path
+          description: id variable
+          required: true
+          style: simple
+
+          schema:
+            maxLength: 255
+            type: string
+      responses:
+        '200':
+          description: This is 200 description
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JpaBankEntity'
+  /addBank:
+    post:
+      tags:
+        - user
+      description: This post adds a bank
+      operationId: postBank
+      summary: Creates a user.
+      requestBody:
+        required: true
+        description: The bank to create.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                surname:
+                  type: string
+                trust:
+                  type: number
+                transactionFee:
+                  type: integer
+      responses:
+        '200':
+          description: "This is 201created description"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedMessage'
+
+  /updateBank:
+    put:
+      tags:
+        - user
+      description: This post adds a bank
+      operationId: putBank
+      summary: Creates a user.
+      requestBody:
+        required: true
+        description: The bank to create.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                surname:
+                  type: string
+                trust:
+                  type: number
+                transactionFee:
+                  type: integer
+      responses:
+        '200':
+          description: "This is 201 created description"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedMessage'
+
+  /delete/{id}:
+    delete:
+      tags:
+        - user
+      description: This is a bank delete call
+      operationId: deleteBankById
+      parameters:
+        - name: id
+          in: path
+          description: id variable
+          required: true
+          style: simple
+
+          schema:
+            maxLength: 255
+            type: string
+      responses:
+        '204':
+          description: This is 204 description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedMessage'
+
+
+
+
+
+components:
+  schemas:
+    JpaBankEntity:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          example: sdwd3d32dd
+        trust:
+          type: number
+          example: 3.14
+        transactionFee:
+          type: integer
+          example: 42
+        surname:
+          type: string
+          example: Doe
+    CreatedMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 201created
+    DeletedMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 201created
+
+
+

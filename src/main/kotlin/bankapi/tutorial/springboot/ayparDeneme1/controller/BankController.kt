@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
-@RestController// consider this as bean
-@RequestMapping//("/api/banks")
+//@RestController// consider this as bean
+//@RequestMapping//("/api/banks")
 class BankController(private val service: BankService, val  jpaBankRepository: JpaBankRepository) {
-
+/*
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNotFoundFunc(e: NoSuchElementException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.NOT_FOUND)
@@ -42,4 +42,6 @@ class BankController(private val service: BankService, val  jpaBankRepository: J
     @DeleteMapping("/{accountNumber}")
     fun removeBank(@PathVariable accountNumber: String):Unit = service.removeBank(accountNumber)
 
+
+ */
 }
