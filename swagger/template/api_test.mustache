@@ -1,0 +1,66 @@
+package {{package}}
+
+import io.restassured.RestAssured
+import io.restassured.module.kotlin.extensions.Given
+import io.restassured.module.kotlin.extensions.Then
+import io.restassured.module.kotlin.extensions.When
+
+import io.tenera.backofficemanager.provisioning.security.AuthenticationProvisioning.getAdminJwtToken
+import io.tenera.backofficemanager.utility.SpringBootIntegrationTest
+
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestMethodOrder
+
+import org.springframework.boot.web.server.LocalServerPort
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
+@SpringBootIntegrationTest
+@Disabled // just for the setup phase we set this as @Disabled --> once all the features are using the db persistence and all entities tests have been implemented we can remove this.
+class {{classname}}Test {
+
+@LocalServerPort
+private val port = 0
+
+@BeforeAll
+fun setupTestClass() {
+RestAssured.port = port
+RestAssured.enableLoggingOfRequestAndResponseIfValidationFails()
+}
+{{#operations}}{{#operation}}{{#responses}}
+    @Test
+    @Order(1)
+    fun `{{operationId}} {{#lambda.lowercase}}{{#is2xx}}{{{summary}}} with status code {{code}} {{/is2xx}}{{^is2xx}}returns {{#isArray}}a list of {{/isArray}}{{#baseType}}{{{baseType}}}{{/baseType}}{{/is2xx}} {{^is2xx}}with status code {{code}} when {{{message}}}{{/is2xx}}{{/lambda.lowercase}}`() {
+    {{#pathParams}}
+        val {{paramName}}: {{{dataType}}}? = null
+    {{/pathParams}}
+    {{#queryParams}}
+        val {{paramName}}: {{{dataType}}}? = {{#isBoolean}}false{{/isBoolean}}{{^isBoolean}}{{#isString}}""{{/isString}}{{^isString}}null{{/isString}}{{/isBoolean}}
+    {{/queryParams}}
+    {{#bodyParams}}
+        val {{paramName}}: String? = "{}"
+    {{/bodyParams}}
+
+    Given {
+    {{#hasAuthMethods}}
+        header("Authorization", getAdminJwtToken())
+    {{/hasAuthMethods}}
+    {{#hasConsumes}}
+        contentType({{#consumes}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/consumes}})
+    {{/hasConsumes}}
+    {{#bodyParams}}
+        body({{paramName}})
+    {{/bodyParams}}
+    {{#queryParams}}
+        queryParam("{{paramName}}", {{paramName}})
+    {{/queryParams}}
+    } When {
+    {{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}("{{path}}"{{#hasPathParams}}{{#pathParams}}, {{paramName}}{{/pathParams}}{{/hasPathParams}})
+    } Then {
+    statusCode({{{code}}})
+    }
+    }{{/responses}}{{/operation}}{{/operations}}
+}

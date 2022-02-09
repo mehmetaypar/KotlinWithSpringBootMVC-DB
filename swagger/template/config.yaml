@@ -1,0 +1,4 @@
+files:
+  api.mustache:
+    templateType: API
+    destinationFilename: Controller.kt
