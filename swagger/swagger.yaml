@@ -151,8 +151,67 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreatedMessage'
 
+  /ozgur/testEndpoint:
+    post:
+      tags:
+        - ozgur
+      description: This is a new endpoint generation test with multiple operations.
+      operationId: postOperation
+      summary: My summary 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OzgurOperationInput'
+      responses:
+        '200':
+          description: "This response is brought you by Swagger!"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OzgurOperationObject'
+    put:
+      tags:
+        - ozgur
+      description: This is a new endpoint generation test with multiple operations.
+      operationId: putOperation
+      summary: My summary 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OzgurOperationInput'
+      responses:
+        '200':
+          description: "This response is brought you by Swagger!"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OzgurOperationObject'
+
 components:
   schemas:
+    OzgurOperationInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          maxLength: 55
+          pattern: (.|\s)*\S(.|\s)*
+          type: string
+    OzgurOperationObject:
+      type: object
+      properties:
+        name:
+          maxLength: 55
+          pattern: (.|\s)*\S(.|\s)*
+          type: string
+        message:
+          type: string
+          maxLength: 255
     JpaBankEntity:
       type: object
       properties:
