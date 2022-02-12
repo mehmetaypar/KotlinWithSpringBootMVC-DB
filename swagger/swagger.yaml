@@ -8,7 +8,7 @@ servers:
   - url: "http://notlocalhost:8080"
 
 paths:
-  /user/getdata:
+  /user/allBanks:
     get:
       tags:
         - user
@@ -22,7 +22,8 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/JpaBankEntity'
+                  $ref: '#/components/schemas/BankObject'
+
   /user/surname/{surname}:
     get:
       tags:
@@ -45,7 +46,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JpaBankEntity'
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankObject'
   /user/{id}:
     get:
       tags:
@@ -68,7 +71,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JpaBankEntity'
+                $ref: '#/components/schemas/BankObject'
     delete:
       tags:
         - user
@@ -104,16 +107,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                accountNumber:
-                  type: string
-                surname:
-                  type: string
-                trust:
-                  type: number
-                transactionFee:
-                  type: integer
+              $ref: '#/components/schemas/BankInput'
       responses:
         '200':
           description: "This is 201created description"
@@ -133,16 +127,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                accountNumber:
-                  type: string
-                surname:
-                  type: string
-                trust:
-                  type: number
-                transactionFee:
-                  type: integer
+              $ref: '#/components/schemas/BankInput'
       responses:
         '200':
           description: "This is 201 created description"
@@ -153,7 +138,22 @@ paths:
 
 components:
   schemas:
-    JpaBankEntity:
+    BankInput:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          example: sdwd3d32dd
+        trust:
+          type: number
+          example: 3.14
+        transactionFee:
+          type: integer
+          example: 42
+        surname:
+          type: string
+          example: Doe
+    BankObject:
       type: object
       properties:
         accountNumber:

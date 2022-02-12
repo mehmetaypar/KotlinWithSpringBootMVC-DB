@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Table(name="banks_table")
 @Entity
- class jpaBankEntity (
+ class BankEntity (
     @Id
     @Column( nullable = false)
     var accountNumber: String? = null,

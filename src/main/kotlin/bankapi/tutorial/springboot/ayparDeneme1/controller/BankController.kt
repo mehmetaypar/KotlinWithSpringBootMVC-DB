@@ -1,11 +1,7 @@
 package bankapi.tutorial.springboot.ayparDeneme1.controller
 
 import bankapi.tutorial.springboot.ayparDeneme1.datasource.jpaBankDataSource.JpaBankRepository
-import bankapi.tutorial.springboot.ayparDeneme1.model.jpaBankEntity
 import bankapi.tutorial.springboot.ayparDeneme1.service.BankService
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
 
 
 //@RestController// consider this as bean
