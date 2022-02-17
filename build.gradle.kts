@@ -30,8 +30,7 @@ allOpen {
 }
 
 dependencies {
-	implementation( files("build/libs/mysql-connector-java-8.0.20.jar"))
-
+	implementation("mysql:mysql-connector-java:8.0.15")
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
